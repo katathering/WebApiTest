@@ -2,10 +2,7 @@ package com.example.WebApi.Controller;
 
 import com.example.WebApi.Entity.Article;
 import com.example.WebApi.Repository.ArticleRepository;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParser;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +18,7 @@ public class ArticleController {
     ArticleRepository articleRepository;
     Article article;
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @RequestMapping(value = "/getOne", method = RequestMethod.GET)
     public Article getArticle(){
          String headline  = "Eine Überschrift";
          String content = "balablablablablabal";
@@ -37,11 +34,12 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String setArticle(@RequestBody String text){
-//        article.setContent("hallo");
-//        String headline  = "Eine Überschrift";
-//        String content = "balablablablablabal";
-        return text;
+    public Article setArticle(@RequestBody String text){
+        article = new Article();
+        article.setContent("Hallo Content Test");
+        article.setId(1);
+        article.setHeadline("Headline Test");
+        return article;
     }
 
 }
