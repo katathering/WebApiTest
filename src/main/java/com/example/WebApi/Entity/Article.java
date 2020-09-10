@@ -1,15 +1,10 @@
 package com.example.WebApi.Entity;
 
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class Article {
 
+    private Integer id;
     private String headline;
     private String content;
-    private Integer id;
 
     public Article(){
 
@@ -40,7 +35,6 @@ public class Article {
         this.id = id;
     }
 
-    @Id
     public Integer getId() {
         return id;
     }
