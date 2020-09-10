@@ -1,7 +1,11 @@
 package com.example.WebApi.Entity;
 
+import org.springframework.data.annotation.Id;
+
+
 public class Article {
 
+    @Id
     private Integer id;
     private String headline;
     private String content;

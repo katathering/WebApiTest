@@ -2,44 +2,46 @@ package com.example.WebApi.Controller;
 
 import com.example.WebApi.Entity.Article;
 import com.example.WebApi.Repository.ArticleRepository;
+import com.example.WebApi.Services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
+    @Resource
+    ArticleService articleService;
 
     @Autowired
     ArticleRepository articleRepository;
     Article article;
 
-    @RequestMapping(value = "/getOne", method = RequestMethod.GET)
-    public Article getArticle(){
-         String headline  = "Eine Überschrift";
-         String content = "balablablablablabal";
-
-        Article article = new Article(headline, content);
-        return article;
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    public Article getArticle(@PathVariable Integer id){
+        return articleService.getArticle(id);
     }
 
-    @RequestMapping(value = "/get-all", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/all", method = RequestMethod.GET)
     public List<Article> getArticleAll(){
-        List<Article> articleList = articleRepository.findAll();
-        return articleList;
+        return articleService.getArticleAll();
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Article setArticle(@RequestBody String text){
-        article = new Article();
-        article.setContent("Hallo Content Test");
-        article.setId(1);
-        article.setHeadline("Headline Test");
-        return article;
+    public void setArticle(@RequestBody Article newArticle){
+        articleService.saveArticle(newArticle);
+    }
+
+    @RequestMapping(value = "/edit/{id}" , method = RequestMethod.PUT)
+    public void editArticle(@PathVariable Integer id, @RequestBody Article newArticle){
+        articleService.editArticle(id, newArticle);
+    }
+
+    @RequestMapping(value = "/delete/{id}" , method = RequestMethod.DELETE)
+    public void deleteArticle(@PathVariable Integer id){
+        articleService.deleteArticle(id);
     }
 
 }
