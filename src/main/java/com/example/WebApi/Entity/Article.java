@@ -6,7 +6,8 @@ import org.springframework.data.annotation.Id;
 public class Article {
 
     @Id
-    private Integer id;
+    private String id;
+
     private String headline;
     private String content;
 
@@ -35,11 +36,11 @@ public class Article {
         this.content = content;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 }

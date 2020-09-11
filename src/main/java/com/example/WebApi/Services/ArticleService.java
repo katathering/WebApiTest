@@ -22,7 +22,7 @@ public class ArticleService {
         return articleList;
     }
 
-    public Article getArticle(Integer id) {
+    public Article getArticle(String id) {
         boolean article = articleRepository.findById(id).isPresent();
         if (article) {
             return articleRepository.findById(id).get();
@@ -32,7 +32,7 @@ public class ArticleService {
 
     }
 
-    public void deleteArticle(Integer id) {
+    public void deleteArticle(String id) {
         boolean isArticle = articleRepository.findById(id).isPresent();
         if (isArticle) {
             Article article = articleRepository.findById(id).get();
@@ -42,10 +42,13 @@ public class ArticleService {
         }
     }
 
-    public void editArticle(Integer id, Article newArticle) {
+    public void editArticle(String id, Article newArticle) {
         boolean isArticle = articleRepository.findById(id).isPresent();
         if (isArticle) {
-            articleRepository.save(newArticle);
+            Article article = articleRepository.findById(id).get();
+            article.setHeadline(newArticle.getHeadline());
+            article.setContent(newArticle.getContent());
+            articleRepository.save(article);
         }else{
             throw new EmptyStackException();
         }

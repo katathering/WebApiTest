@@ -20,7 +20,7 @@ public class ArticleController {
     Article article;
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-    public Article getArticle(@PathVariable Integer id){
+    public Article getArticle(@PathVariable String id){
         return articleService.getArticle(id);
     }
 
@@ -35,12 +35,12 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/edit/{id}" , method = RequestMethod.PUT)
-    public void editArticle(@PathVariable Integer id, @RequestBody Article newArticle){
+    public void editArticle(@PathVariable String id, @RequestBody Article newArticle){
         articleService.editArticle(id, newArticle);
     }
 
     @RequestMapping(value = "/delete/{id}" , method = RequestMethod.DELETE)
-    public void deleteArticle(@PathVariable Integer id){
+    public void deleteArticle(@PathVariable String id){
         articleService.deleteArticle(id);
     }
 
