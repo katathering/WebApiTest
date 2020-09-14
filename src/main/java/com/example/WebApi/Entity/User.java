@@ -1,14 +1,13 @@
 package com.example.WebApi.Entity;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 
 public class User {
 
     @Id
-    private String id;
+    private ObjectId _id;
 
     private String firstname;
     private String lastname;
@@ -16,8 +15,8 @@ public class User {
     private String password;
     private String email;
 
-    public User(String id, String firstname, String lastname, String userRole) {
-        this.id = id;
+    public User(ObjectId _id, String firstname, String lastname, String userRole) {
+        this._id = _id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.userRole = userRole;
@@ -64,6 +63,6 @@ public class User {
     }
 
     public String getId() {
-        return id;
+        return this._id.toHexString();
     }
 }

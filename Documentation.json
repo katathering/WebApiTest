@@ -1,0 +1,351 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Web API Project",
+    "description": "Project in WiSe2020.",
+    "version": "1.0.0"
+  },
+  "host": "localhost",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+
+    "/login": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "checks if User exists with specific data.",
+        "description": "without authorization and authentication yet.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "User Data",
+            "in": "body",
+            "description": "Needed Data for Login",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "firstname": "Larissa",
+                "lastname":"Eirich",
+                "userRole":"ADMIN",
+                "password":"test1",
+                "email":"test1@test.de"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "You successfully logged in!"
+          },
+          "400": {
+            "description": "Your Username or Password is wrong!"
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "creates new User",
+        "description": "email must be unique",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Signup Data",
+            "in": "body",
+            "description": "Needed Signup Data of new User",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "firstname": "Larissa",
+                "lastname":"Käfer",
+                "userRole":"ADMIN",
+                "password":"test1",
+                "email":"test555@test.de"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Signed Up!"
+          },
+          "400": {
+            "description": "This Email already exists."
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "gets all registered users in the database",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "example": {
+                "firstname": "Larissa",
+                "lastname": "Eirich",
+                "userRole": "ADMIN",
+                "password": "test",
+                "email": "test@test.de",
+                "id": "5f5b56573bdf3e599bc0049c"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/add": {
+      "post": {
+        "tags": [
+          "Article Management"
+        ],
+        "summary": "Creates new Article with given data.",
+        "description": "ID is auto generated.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Article Body",
+            "in": "body",
+            "description": "Headline and Content of new Article",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "headline":"Headline4",
+                "content":"Content4"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/article/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Article Management"
+        ],
+        "summary": "deletes article by ID",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Article you want to delete.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "5f5b69a40a78314ebe94441e"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/article/delete/all": {
+      "delete": {
+        "tags": [
+          "Article Management"
+        ],
+        "summary": "deletes all articles",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/article/edit/{id}": {
+      "put": {
+        "tags": [
+          "Article Management"
+        ],
+        "summary": "edits an article by ID",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Article you want to edit.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "5f5b69a40a78314ebe94441e"
+              }
+            }
+          },
+          {
+            "name": "headline",
+            "in": "body",
+            "description": "headline of the Article you want to edit.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "headline": "This is the new Headline!",
+                "content": "This is the new Content!"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article edited!"
+          },
+          "400": {
+            "description": "Article not found!"
+          }
+        }
+      }
+    },
+    "/article/edit/headline/{id}": {
+      "patch": {
+        "tags": [
+          "Article Management"
+        ],
+        "summary": "edits just the headline by articles ID",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Article you want to edit.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "5f5b69a40a78314ebe94441e"
+              }
+            }
+          },
+          {
+            "name": "headline",
+            "in": "body",
+            "description": "Headline of the Article you want to edit.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "This is the new Headline!"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Headline changed!"
+          },
+          "400": {
+            "description": "Article not found!"
+          }
+        }
+      }
+    },
+    "/article/get/{id}": {
+      "get": {
+        "tags": [
+          "Article Management"
+        ],
+        "summary": "gets article by ID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Article you want to see.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "5f5b69a40a78314ebe94441e"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/article/get/all": {
+      "post": {
+        "tags": [
+          "Article Management"
+        ],
+        "summary": "gets all articles",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "example": {
+                "id": "5f5b69a40a78314ebe94441e",
+                "headline": "This is the Headline!",
+                "content": "This is the Content."
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}
